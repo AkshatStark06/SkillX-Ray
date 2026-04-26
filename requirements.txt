@@ -1,0 +1,24 @@
+# ── Web Framework ──
+fastapi==0.111.0
+uvicorn==0.30.1
+
+# ── Request handling ──
+httpx==0.27.0
+python-multipart==0.0.9
+
+# ── PDF Parsing ──
+PyMuPDF==1.24.1
+pdfplumber==0.11.0
+
+# ── LLM APIs ──
+google-generativeai==0.7.2
+groq==0.9.0
+
+# ── Data validation ──
+pydantic==2.7.4
+
+# ── Environment variables ──
+python-dotenv==1.0.1
+
+# ── Standard utils (no install needed, already in Python) ──
+# json, re, uuid, os, time — all built-in

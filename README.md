@@ -1,0 +1,215 @@
+---
+title: AI Skill Assessment Agent
+emoji: 🚀
+colorFrom: blue
+colorTo: purple
+sdk: docker
+pinned: false
+---
+
+# 🚀 AI Skill Assessment Agent
+
+An AI-powered conversational agent that assesses a candidate's real skill proficiency from their resume and a job description — then generates a personalised learning plan to close the gaps.
+
+---
+
+## 🎯 What It Does
+
+Most hiring tools rely on self-reported resumes. This agent goes further:
+
+1. **Parses** a Job Description + candidate Resume
+2. **Identifies** skill gaps (what's required vs what the candidate claims)
+3. **Conversationally assesses** real proficiency skill-by-skill
+4. **Scores** each skill (1–5) with feedback
+5. **Generates** a personalised learning plan with free resources + time estimates
+
+---
+
+## 🖥️ Demo Flow
+Upload Resume (PDF) + Paste Job Description
+↓
+Skill Gap Analysis
+(matched vs missing skills)
+↓
+Conversational Assessment
+(AI asks questions per skill,
+follows up based on your answers)
+↓
+Skill Scores + Feedback
+(Strong / Moderate / Weak)
+↓
+Personalised Learning Plan
+(free resources + time estimates)
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | React + Tailwind CSS + Vite |
+| Backend | FastAPI + Python |
+| PDF Parsing | PyMuPDF |
+| LLM (Primary) | Google Gemini 2.5 Flash |
+| LLM (Fallback) | Groq — Llama 3.3 70B |
+| Deployment | Docker + HuggingFace Spaces |
+| Cost | 100% Free |
+
+---
+
+## 🔁 Architecture
+Resume PDF + JD Text
+↓
+PDF Parser (PyMuPDF)
+↓
+LLM Skill Extractor (Gemini / Groq)
+↓
+Skill Gap Analyser
+(core skills vs missing skills)
+↓
+LangGraph-style Agent Loop
+┌─────────────────────────┐
+│  Question Generator     │
+│  → Candidate Answer     │
+│  → Evaluator (LLM)      │
+│  → Follow-up or Next    │
+└─────────────────────────┘
+↓
+Proficiency Scores (1–5)
+↓
+Learning Plan Generator (LLM)
+↓
+Final Report
+
+---
+
+## 💡 Key Design Decisions
+
+- **LLM Fallback Chain** — Gemini 2.5 Flash → Groq Llama 3.3 70B → Gemini Flash Lite → Groq 3.1 8B. If one hits rate limits, next is tried automatically
+- **Rule-based clustering** — skills grouped into clusters (Python Stack, Databases, ML etc.) to avoid redundant questions
+- **Follow-up cap** — max 2 follow-ups per skill to keep assessment concise
+- **0 cost** — no paid APIs, no subscriptions, works entirely on free tiers
+
+---
+
+## 🚀 Local Setup
+
+### Prerequisites
+- Python 3.11+
+- Node.js 18+
+- Gemini API key → [aistudio.google.com](https://aistudio.google.com)
+- Groq API key → [console.groq.com](https://console.groq.com)
+
+### Backend
+
+```bash
+cd backend
+python -m venv venv
+venv\Scripts\activate        # Windows
+# source venv/bin/activate   # Mac/Linux
+
+pip install -r requirements.txt
+
+# Create .env file
+echo GEMINI_API_KEY=your_key_here > .env
+echo GROQ_API_KEY=your_key_here >> .env
+
+uvicorn app.main:app --reload
+```
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173)
+
+---
+
+## 📁 Project Structure
+ai-skill-agent/
+│
+├── Dockerfile
+├── README.md
+│
+├── backend/
+│   ├── app/
+│   │   ├── routes/
+│   │   │   ├── agent.py
+│   │   │   ├── assessment.py
+│   │   │   ├── resume.py
+│   │   │   ├── session.py
+│   │   │   ├── skills.py
+│   │   │   ├── skill_gap.py
+│   │   │   └── results.py
+│   │   │
+│   │   ├── services/
+│   │   │   ├── llm_router.py       # model fallback chain
+│   │   │   ├── gemini_service.py   # LLM skill extraction
+│   │   │   ├── resume_parser.py    # PDF → text
+│   │   │   ├── skill_extractor.py  # rule-based extraction
+│   │   │   ├── skill_gap.py        # gap analysis
+│   │   │   ├── agent.py            # single agent step
+│   │   │   ├── agent_flow.py       # full assessment loop
+│   │   │   ├── question_generator.py
+│   │   │   ├── evaluator.py
+│   │   │   ├── learning_plan.py
+│   │   │   └── session_manager.py
+│   │   │
+│   │   └── main.py
+│   │
+│   └── requirements.txt
+│
+└── frontend/
+└── src/
+├── pages/
+│   └── Dashboard.jsx
+└── services/
+└── api.js
+
+---
+
+## 📊 Sample Input / Output
+
+### Input
+- **Resume**: Data Analyst resume with Python, SQL, Power BI, Pandas
+- **JD**: Data Analyst role requiring Python, SQL, Tableau, Statistics, Excel
+
+### Output — Skill Gap
+✅ Matched:  python, sql, excel, pandas
+❌ Missing:  tableau, statistics
+
+### Output — Assessment Score
+Python     → Strong   5/5
+SQL        → Weak     1/5
+Excel      → Strong   5/5
+Pandas     → Strong   4/5
+Tableau    → Weak     2/5
+Statistics → Moderate 3/5
+
+### Output — Learning Plan
+SQL
+Topics: SELECT, JOINs, subqueries, aggregations
+Resources: sqlzoo.net, youtube.com/HXV3zeQKqGY
+Time: 3-4 weeks
+Statistics
+Topics: mean, median, distributions, hypothesis testing
+Resources: Khan Academy, youtube.com/xxpc-HPKN28
+Time: 2-3 weeks
+
+---
+
+## ⚠️ Known Limitations
+
+- Session data is stored in-memory — resets on server restart
+- Free tier rate limits may trigger model fallback during heavy use
+- Assessment quality depends on LLM availability
+
+---
+
+## 📬 Built For
+
+Catalyst Hackathon — AI-Powered Skill Assessment & Personalised Learning Plan Agent
