@@ -17,7 +17,7 @@ COPY frontend/ ./frontend/
 RUN cd frontend && npm run build
 
 # ── Setup Python backend ──
-COPY backend/requirements.txt ./
+COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY backend/ ./backend/
