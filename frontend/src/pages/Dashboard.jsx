@@ -319,7 +319,15 @@ export default function Dashboard() {
                         <div>
                           <p className="text-xs text-gray-500 mb-1">Resources:</p>
                           {p.resources.map((r, j) => (
-                            <a key={j} href={r.startsWith("http") ? r : "#"} target="_blank" rel="noreferrer"
+                            <a key={j}
+                              href={
+                                r.startsWith("http")
+                                  ? r
+                                  : r.startsWith("www.")
+                                  ? `https://${r}`
+                                  : `https://www.google.com/search?q=${encodeURIComponent(r)}`
+                              }
+                              target="_blank" rel="noreferrer"
                               className="block text-xs text-blue-400 hover:underline truncate">🔗 {r}</a>
                           ))}
                         </div>
