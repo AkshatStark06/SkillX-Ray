@@ -50,4 +50,10 @@ def serve_react(full_path: str):
 
 static_path = os.path.join(os.path.dirname(__file__), "../static")
 if os.path.exists(static_path):
-    app.mount("/", StaticFiles(directory=static_path, html=True), name="static")
+    # Catch-all for React routes
+    @app.get("/{full_path:path}")
+    def serve_react(full_path: str):
+        index = os.path.join(static_path, "index.html")
+        return FileResponse(index)
+
+    app.mount("/assets", StaticFiles(directory=os.path.join(static_path, "assets")), name="assets")

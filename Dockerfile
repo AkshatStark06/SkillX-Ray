@@ -18,7 +18,7 @@ RUN cd frontend && npm install && npm run build
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy built React into backend static folder
-RUN cp -r frontend/dist backend/static
+RUN mkdir -p backend/static && cp -r frontend/dist/. backend/static/
 
 EXPOSE 7860
 
