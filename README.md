@@ -25,21 +25,30 @@ Most hiring tools rely on self-reported resumes. This agent goes further:
 
 ---
 
-## 🖥️ Demo Flow
-Upload Resume (PDF) + Paste Job Description
+### Pipeline Flow
+
+Resume PDF + JD Text
 ↓
-Skill Gap Analysis
-(matched vs missing skills)
+PDF Parser (PyMuPDF)
 ↓
-Conversational Assessment
-(AI asks questions per skill,
-follows up based on your answers)
+LLM Skill Extractor (Gemini / Groq fallback)
 ↓
-Skill Scores + Feedback
-(Strong / Moderate / Weak)
+Gap Analyser → core skills + missing skills
 ↓
-Personalised Learning Plan
-(free resources + time estimates)
+Conversational Assessment Agent Loop
+┌─────────────────────────────────────┐
+│  Question Generator (per skill)     │
+│  → Candidate Answer (free text)     │
+│  → Evaluator (LLM-as-judge)         │
+│  → Follow-up OR Next skill          │
+└─────────────────────────────────────┘
+↓
+Skill Scores + Gap Report + Learning Plan
+
+---
+## 🏗️ Architecture
+
+![SkillX-Ray Architecture](./skillxray_architecture.svg)
 
 ---
 
@@ -89,6 +98,27 @@ Final Report
 - **Rule-based clustering** — skills grouped into clusters (Python Stack, Databases, ML etc.) to avoid redundant questions
 - **Follow-up cap** — max 2 follow-ups per skill to keep assessment concise
 - **0 cost** — no paid APIs, no subscriptions, works entirely on free tiers
+
+---
+
+### Scoring Logic
+
+**Skill Extraction** — LLM extracts skills from JD and resume separately. Falls back to rule-based keyword extractor (60+ skills) if LLM fails.
+
+**Gap Classification** — Skills split into three buckets:
+- `core_skills` — in both JD and resume → assessed for depth
+- `jd_only_skills` — required but missing → assessed as gaps  
+- `resume_only` — ignored for this role
+
+**Question Generation** — Questions generated dynamically per skill at three difficulty levels: easy (basic concepts), medium (scenario-based), hard (trade-offs and edge cases).
+
+**LLM-as-Judge Scoring** — Each answer evaluated by LLM using a structured rubric:
+- Score 1-2 → Weak → easy follow-up question triggered
+- Score 3 → Moderate → medium follow-up triggered
+- Score 4-5 → Strong → move to next skill immediately
+- Max 2 follow-ups per skill to prevent infinite loops
+
+**Learning Plan** — Skills scoring below 4 are included in the plan with curated free resources and time estimates. Falls back to hardcoded resources if LLM is unavailable.
 
 ---
 
