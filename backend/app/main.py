@@ -31,7 +31,6 @@ app.include_router(evaluation.router, prefix="/api", tags=["Evaluation"])
 app.include_router(skill_gap.router,  prefix="/api", tags=["SkillGap"])
 
 # ── Serve React frontend ──
-# Must come AFTER all API routes
 static_path = os.path.join(os.path.dirname(__file__), "../static")
 
 if os.path.exists(static_path):
@@ -40,8 +39,7 @@ if os.path.exists(static_path):
         directory=os.path.join(static_path, "assets")
     ), name="assets")
 
-    # ✅ Serve index.html for ALL non-API routes
-    # This REPLACES the old @app.get("/") JSON route
+    
     @app.get("/")
     def root():
         return FileResponse(os.path.join(static_path, "index.html"))

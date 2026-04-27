@@ -7,9 +7,7 @@ router = APIRouter()
  
  
 class ResultsRequest(BaseModel):
-    # ✅ FIX: generate_learning_plan expects a list of
-    # {"skill": "...", "evaluation": {"score": X, ...}} dicts
-    # not just a list of missing skill strings
+    
     results: List[dict]
  
  

@@ -52,7 +52,7 @@ def generate_learning_plan(results: list) -> dict:
  
     for item in results:
         skill = item.get("skill", "unknown")
-        # ✅ Safe access — evaluation might be a fallback dict
+        # Safe access — evaluation might be a fallback dict
         score = item.get("evaluation", {}).get("score", 3)
  
         if score < 4:
@@ -96,7 +96,7 @@ def generate_learning_plan(results: list) -> dict:
     try:
         raw_text = call_with_fallback(prompt)
  
-        # ✅ CRITICAL FIX: Guard against None before regex
+        # CRITICAL FIX: Guard against None before regex
         if not raw_text:
             print("LearningPlan: LLM returned None, using hardcoded fallback.")
             result = _get_fallback_plan(weak_skills)
@@ -112,7 +112,7 @@ def generate_learning_plan(results: list) -> dict:
         print("LearningPlan failed:", e)
         result = _get_fallback_plan(weak_skills)
  
-    # ✅ Always attach strong/weak summary alongside the plan
+    
     result["strong_skills"] = strong_skills
     result["weak_skills"]   = weak_skills
  

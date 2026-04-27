@@ -35,7 +35,7 @@ def generate_question(skill: str, level: str = "medium") -> dict:
     raw_text = call_with_fallback(prompt)
     print("\n--- QUESTION RESPONSE ---\n", raw_text)
  
-    # ✅ CRITICAL FIX: Guard against None before regex
+    # CRITICAL FIX: Guard against None before regex
     if not raw_text:
         print("QuestionGenerator: LLM returned None, using fallback question.")
         return {

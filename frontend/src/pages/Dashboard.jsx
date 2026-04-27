@@ -102,9 +102,7 @@ export default function Dashboard() {
       const nextQuestion = data.question || data.next_question || ""
       const nextSkill    = data.skill || currentSkill
 
-      // ✅ FIX: detect skill change by comparing skill names, not action
-      // backend returns action:"ask" for next skill (due to recursive call)
-      // so we can't rely on action:"next_skill" ever reaching frontend
+      
       if (nextSkill !== currentSkill) {
         setSkillIndex(prev => Math.min(prev + 1, assessSkills.length - 1))
         setLastFeedback("") // clear feedback when moving to new skill
@@ -131,7 +129,7 @@ export default function Dashboard() {
     <div className="min-h-screen bg-gradient-to-br from-[#020617] via-[#020617] to-[#0f172a] text-white flex items-center justify-center p-6">
       <div className="w-full max-w-3xl bg-[#0f172a] p-8 rounded-2xl shadow-2xl border border-white/10">
 
-        <h1 className="text-3xl font-bold text-center mb-2">AI Skill Assessment 🚀</h1>
+        <h1 className="text-3xl font-bold text-center mb-2">AI Skill Assessment </h1>
         <p className="text-center text-gray-400 text-sm mb-8">Paste a Job Description + upload your resume to begin</p>
 
         {error && (

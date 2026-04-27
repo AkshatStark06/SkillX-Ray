@@ -22,7 +22,7 @@ def run_agent_flow(session_id: str, answer: str = None) -> dict:
     skills = session["skills"]
     index  = session["current_index"]
  
-    # ✅ All skills done → generate final output
+    
     if index >= len(skills):
         final_analysis = generate_learning_plan(session["results"])
         return {
@@ -51,8 +51,7 @@ def run_agent_flow(session_id: str, answer: str = None) -> dict:
         result["action"]  = "next_skill"
         result["message"] = "Moving to next skill (follow-up limit reached)."
  
-        # ✅ CRITICAL FIX: "evaluation" may not exist if we forced next_skill
-        # after a follow_up result — always ensure it exists
+        
         if "evaluation" not in result:
             result["evaluation"] = {
                 "score":    3,
@@ -60,12 +59,9 @@ def run_agent_flow(session_id: str, answer: str = None) -> dict:
                 "feedback": "Follow-up limit reached — defaulting to Moderate."
             }
  
-    # ========================
-    # MOVE TO NEXT SKILL
-    # ========================
+    
  
     if result["action"] == "next_skill":
-        # ✅ Safe fallback if evaluation somehow still missing
         evaluation = result.get("evaluation", {
             "score":    3,
             "level":    "Moderate",
@@ -81,12 +77,11 @@ def run_agent_flow(session_id: str, answer: str = None) -> dict:
         session["followup_count"]  = 0
         update_session(session_id, session)
  
-        # ✅ Recurse to get first question of next skill (or final result)
+        
         return run_agent_flow(session_id, answer=None)
  
-    # ========================
-    # STILL IN SAME SKILL
-    # ========================
+   
+    
  
     update_session(session_id, session)
     return result

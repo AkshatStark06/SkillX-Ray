@@ -60,7 +60,7 @@ def extract_skills_with_llm(text: str, source: str = "document") -> list:
     raw_text = call_with_fallback(prompt)
     print(f"\n--- LLM SKILL EXTRACTION ({source}) ---\n", raw_text)
  
-    # ✅ Guard against None
+    # Guard against None
     if not raw_text:
         print(f"LLM skill extraction failed for {source}. Using rule-based fallback.")
         return rule_based_extract(text)

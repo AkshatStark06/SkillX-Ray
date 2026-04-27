@@ -1,13 +1,13 @@
 ---
 title: AI Skill Assessment Agent
-emoji: 🚀
+emoji: 
 colorFrom: blue
 colorTo: purple
 sdk: docker
 pinned: false
 ---
 
-# 🚀 AI Skill Assessment Agent
+#  AI Skill Assessment Agent
 
 An AI-powered conversational agent that assesses a candidate's real skill proficiency from their resume and a job description — then generates a personalised learning plan to close the gaps.
 

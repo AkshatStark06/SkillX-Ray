@@ -28,7 +28,7 @@ def evaluate_answer(skill: str, answer: str) -> dict:
     raw_text = call_with_fallback(prompt)
     print("\n--- EVALUATION RESPONSE ---\n", raw_text)
  
-    # ✅ CRITICAL FIX: Guard against None before regex
+    
     if not raw_text:
         print("Evaluator: LLM returned None, using fallback score.")
         return {
@@ -42,7 +42,7 @@ def evaluate_answer(skill: str, answer: str) -> dict:
         if match:
             data = json.loads(match.group(0))
  
-            # ✅ Validate score is an integer in range
+            
             score = int(data.get("score", 3))
             score = max(1, min(5, score))  # clamp to 1-5
  

@@ -18,9 +18,9 @@ def compare_skills(jd_skills: list, resume_skills: list) -> dict:
     jd_set     = set(s.lower().strip() for s in jd_skills)
     resume_set = set(s.lower().strip() for s in resume_skills)
  
-    core_skills    = sorted(jd_set & resume_set)      # ✅ claimed + required
-    jd_only_skills = sorted(jd_set - resume_set)      # ❌ required but missing
-    resume_only    = sorted(resume_set - jd_set)       # ignored for this role
+    core_skills    = sorted(jd_set & resume_set)      
+    jd_only_skills = sorted(jd_set - resume_set)     
+    resume_only    = sorted(resume_set - jd_set)       
  
     return {
         "core_skills":    core_skills,

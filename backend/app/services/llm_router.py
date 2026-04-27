@@ -51,7 +51,7 @@ def call_with_fallback(prompt: str) -> str | None:
             else:
                 continue
  
-            # ✅ Only return if we got a real non-empty response
+            # Only return if we got a real non-empty response
             if result and result.strip():
                 return result
  

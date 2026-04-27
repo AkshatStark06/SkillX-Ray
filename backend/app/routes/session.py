@@ -13,8 +13,7 @@ class SessionCreateRequest(BaseModel):
  
 class SessionRunRequest(BaseModel):
     session_id: str
-    # ✅ FIX: "str = None" causes Pydantic validation error
-    # Must be Optional[str] to allow null from frontend
+    
     answer: Optional[str] = None
  
  

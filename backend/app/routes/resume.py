@@ -19,7 +19,7 @@ async def parse_resume(file: UploadFile = File(...)):
         return {"error": f"Could not read PDF: {str(e)}", "skills": []}
  
     # Extract skills using LLM (falls back to rule-based if LLM fails)
-    # ✅ FIX: was extract_skills_with_gemini (old name) → now extract_skills_with_llm
+    
     skills = extract_skills_with_llm(text, source="resume")
  
     return {
