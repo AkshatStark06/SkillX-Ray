@@ -160,45 +160,45 @@ Open [http://localhost:5173](http://localhost:5173)
 ---
 
 ## 📁 Project Structure
+
+```
 ai-skill-agent/
-│
 ├── Dockerfile
 ├── README.md
+├── requirements.txt
+├── architecture.svg
 │
 ├── backend/
-│   ├── app/
-│   │   ├── routes/
-│   │   │   ├── agent.py
-│   │   │   ├── assessment.py
-│   │   │   ├── resume.py
-│   │   │   ├── session.py
-│   │   │   ├── skills.py
-│   │   │   ├── skill_gap.py
-│   │   │   └── results.py
-│   │   │
-│   │   ├── services/
-│   │   │   ├── llm_router.py       # model fallback chain
-│   │   │   ├── gemini_service.py   # LLM skill extraction
-│   │   │   ├── resume_parser.py    # PDF → text
-│   │   │   ├── skill_extractor.py  # rule-based extraction
-│   │   │   ├── skill_gap.py        # gap analysis
-│   │   │   ├── agent.py            # single agent step
-│   │   │   ├── agent_flow.py       # full assessment loop
-│   │   │   ├── question_generator.py
-│   │   │   ├── evaluator.py
-│   │   │   ├── learning_plan.py
-│   │   │   └── session_manager.py
-│   │   │
-│   │   └── main.py
-│   │
-│   └── requirements.txt
+│   └── app/
+│       ├── main.py
+│       ├── routes/
+│       │   ├── agent.py
+│       │   ├── assessment.py
+│       │   ├── resume.py
+│       │   ├── session.py
+│       │   ├── skills.py
+│       │   ├── skill_gap.py
+│       │   └── results.py
+│       └── services/
+│           ├── llm_router.py
+│           ├── gemini_service.py
+│           ├── resume_parser.py
+│           ├── skill_extractor.py
+│           ├── skill_gap.py
+│           ├── agent.py
+│           ├── agent_flow.py
+│           ├── question_generator.py
+│           ├── evaluator.py
+│           ├── learning_plan.py
+│           └── session_manager.py
 │
 └── frontend/
-└── src/
-├── pages/
-│   └── Dashboard.jsx
-└── services/
-└── api.js
+    └── src/
+        ├── pages/
+        │   └── Dashboard.jsx
+        └── services/
+            └── api.js
+```
 
 ---
 
