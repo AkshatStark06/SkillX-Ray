@@ -23,33 +23,12 @@ Most hiring tools rely on self-reported resumes. This agent goes further:
 4. **Scores** each skill (1–5) with feedback
 5. **Generates** a personalised learning plan with free resources + time estimates
 
----
-
-### Pipeline Flow
-
-Resume PDF + JD Text
-↓
-PDF Parser (PyMuPDF)
-↓
-LLM Skill Extractor (Gemini / Groq fallback)
-↓
-Gap Analyser → core skills + missing skills
-↓
-Conversational Assessment Agent Loop
-┌─────────────────────────────────────┐
-│  Question Generator (per skill)     │
-│  → Candidate Answer (free text)     │
-│  → Evaluator (LLM-as-judge)         │
-│  → Follow-up OR Next skill          │
-└─────────────────────────────────────┘
-↓
-Skill Scores + Gap Report + Learning Plan
 
 ---
+
 ## 🏗️ Architecture
 
 ![SkillX-Ray Architecture](./skillxray_architecture.svg)
-
 ---
 
 ## 🛠️ Tech Stack
@@ -63,32 +42,6 @@ Skill Scores + Gap Report + Learning Plan
 | LLM (Fallback) | Groq — Llama 3.3 70B |
 | Deployment | Docker + HuggingFace Spaces |
 | Cost | 100% Free |
-
----
-
-## 🔁 Architecture
-Resume PDF + JD Text
-↓
-PDF Parser (PyMuPDF)
-↓
-LLM Skill Extractor (Gemini / Groq)
-↓
-Skill Gap Analyser
-(core skills vs missing skills)
-↓
-LangGraph-style Agent Loop
-┌─────────────────────────┐
-│  Question Generator     │
-│  → Candidate Answer     │
-│  → Evaluator (LLM)      │
-│  → Follow-up or Next    │
-└─────────────────────────┘
-↓
-Proficiency Scores (1–5)
-↓
-Learning Plan Generator (LLM)
-↓
-Final Report
 
 ---
 
