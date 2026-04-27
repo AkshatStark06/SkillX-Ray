@@ -23,6 +23,11 @@ Most hiring tools rely on self-reported resumes. This agent goes further:
 4. **Scores** each skill (1–5) with feedback
 5. **Generates** a personalised learning plan with free resources + time estimates
 
+---
+
+## 🎥 Demo Video
+
+[▶ Watch Demo on Google Drive](https://drive.google.com/file/d/1eeCTAu1pVC_P0geItKEcfLwqjn1HPbNv/view?usp=drive_link)
 
 ---
 
