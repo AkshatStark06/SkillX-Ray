@@ -42,11 +42,12 @@ def root():
 def health():
     return {"status": "healthy"}
 
-static_path = os.path.join(os.path.dirname(__file__), "../../static")
-if os.path.exists(static_path):
-    app.mount("/", StaticFiles(directory=static_path, html=True), name="static")
 
 @app.get("/{full_path:path}")
 def serve_react(full_path: str):
     index = os.path.join(static_path, "index.html")
     return FileResponse(index)
+
+static_path = os.path.join(os.path.dirname(__file__), "../static")
+if os.path.exists(static_path):
+    app.mount("/", StaticFiles(directory=static_path, html=True), name="static")
