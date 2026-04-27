@@ -1,6 +1,6 @@
 ---
 title: AI Skill Assessment Agent
-emoji: 
+emoji: 🚀
 colorFrom: blue
 colorTo: purple
 sdk: docker
