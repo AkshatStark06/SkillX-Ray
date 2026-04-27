@@ -7,9 +7,9 @@ sdk: docker
 pinned: false
 ---
 
-#  AI Skill Assessment Agent
+#  SkillX-Ray: AI Skill Assessment Agent
 
-An AI-powered conversational agent that assesses a candidate's real skill proficiency from their resume and a job description — then generates a personalised learning plan to close the gaps.
+SkillX-Ray is an AI-powered conversational agent that assesses a candidate's real skill proficiency from their resume and a job description — then generates a personalised learning plan to close the gaps.
 
 ---
 
@@ -196,3 +196,9 @@ Time: 2-3 weeks
 ## 📬 Built For
 
 Catalyst Hackathon — AI-Powered Skill Assessment & Personalised Learning Plan Agent
+
+---
+
+## 👨‍💻 Author
+
+**Akshat Srivastava**
